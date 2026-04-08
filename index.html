@@ -1120,7 +1120,7 @@
 
         let pendingAction = null; // 'download' or 'read'
 
-        function showModal(action) {
+        function showFollowModal(action) {
             pendingAction = action;
             if (action === 'download') {
                 modalTag.textContent = '免費下載';
@@ -1178,7 +1178,7 @@
         document.querySelectorAll('a[download], a[href="book.pdf"][download]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                showModal('download');
+                showFollowModal('download');
             });
         });
 
@@ -1186,7 +1186,7 @@
         document.querySelectorAll('a[href="#reader"]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                showModal('read');
+                showFollowModal('read');
             });
         });
     </script>
