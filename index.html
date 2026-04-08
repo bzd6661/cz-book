@@ -600,6 +600,179 @@
             font-size: 0.8rem;
         }
 
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal {
+            background: var(--dark-2);
+            border: 1px solid rgba(240, 185, 11, 0.3);
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(240, 185, 11, 0.08);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--dark-4);
+            background: var(--dark-3);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .modal-icon {
+            width: 72px;
+            height: 72px;
+            background: rgba(240, 185, 11, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .modal-icon svg {
+            width: 36px;
+            height: 36px;
+            color: var(--gold);
+        }
+
+        .modal h3 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .modal p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .modal p .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .modal-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-follow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--dark);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans TC', sans-serif;
+            box-shadow: 0 4px 20px rgba(240, 185, 11, 0.3);
+        }
+
+        .btn-follow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(240, 185, 11, 0.5);
+        }
+
+        .btn-follow svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-continue {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--dark-4);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .btn-continue:hover {
+            border-color: rgba(240, 185, 11, 0.3);
+            color: var(--text);
+        }
+
+        .modal-tag {
+            display: inline-block;
+            background: rgba(240, 185, 11, 0.12);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            border: 1px solid rgba(240, 185, 11, 0.2);
+        }
+
         /* Scroll animations */
         .fade-in {
             opacity: 0;
@@ -874,6 +1047,26 @@
         </div>
     </section>
 
+    <!-- Follow Modal -->
+    <div class="modal-overlay" id="followModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </div>
+            <div class="modal-tag" id="modalTag">免費資源</div>
+            <h3 id="modalTitle">關注博主，免費下載</h3>
+            <p id="modalDesc">本書由 <span class="highlight">@tiger_web3</span> 整理分享<br>關注即可免費獲取完整 PDF 電子書</p>
+            <div class="modal-btn-group">
+                <a href="https://x.com/tiger_web3" target="_blank" class="btn-follow" id="btnFollow">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    關注 @tiger_web3
+                </a>
+                <button class="btn-continue" id="btnContinue">已關注，繼續</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-logo">幣安人生</div>
@@ -913,6 +1106,87 @@
         document.querySelectorAll('.nav-links a').forEach(a => {
             a.addEventListener('click', () => {
                 document.querySelector('.nav-links').classList.remove('open');
+            });
+        });
+
+        // ===== Follow Modal Logic =====
+        const modal = document.getElementById('followModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalTag = document.getElementById('modalTag');
+        const btnFollow = document.getElementById('btnFollow');
+        const btnContinue = document.getElementById('btnContinue');
+        const modalClose = document.getElementById('modalClose');
+
+        let pendingAction = null; // 'download' or 'read'
+
+        function showModal(action) {
+            pendingAction = action;
+            if (action === 'download') {
+                modalTag.textContent = '免費下載';
+                modalTitle.textContent = '關注博主，免費下載';
+                modalDesc.innerHTML = '本書由 <span class="highlight">@tiger_web3</span> 整理分享<br>關注即可免費獲取完整 PDF 電子書';
+            } else {
+                modalTag.textContent = '免費閱讀';
+                modalTitle.textContent = '關注博主，免費閱讀';
+                modalDesc.innerHTML = '本書由 <span class="highlight">@tiger_web3</span> 整理分享<br>關注即可在線免費閱讀完整內容';
+            }
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function proceedAction() {
+            closeModal();
+            if (pendingAction === 'download') {
+                const a = document.createElement('a');
+                a.href = 'book.pdf';
+                a.download = '幣安人生_CZ回憶錄.pdf';
+                a.click();
+            } else if (pendingAction === 'read') {
+                document.getElementById('reader').scrollIntoView({ behavior: 'smooth' });
+            }
+            pendingAction = null;
+        }
+
+        // "已關注，繼續" button
+        btnContinue.addEventListener('click', proceedAction);
+
+        // Close modal
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // After clicking follow, enable continue
+        btnFollow.addEventListener('click', () => {
+            setTimeout(() => {
+                btnContinue.style.borderColor = 'rgba(240, 185, 11, 0.5)';
+                btnContinue.style.color = 'var(--gold)';
+                btnContinue.textContent = '✓ 已關注，繼續';
+            }, 500);
+        });
+
+        // Intercept all download links
+        document.querySelectorAll('a[download], a[href="book.pdf"][download]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showModal('download');
+            });
+        });
+
+        // Intercept "在線閱讀" button in hero
+        document.querySelectorAll('a[href="#reader"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showModal('read');
             });
         });
     </script>
